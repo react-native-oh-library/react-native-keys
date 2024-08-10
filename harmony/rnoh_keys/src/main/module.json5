@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "rnoh_keys",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}
