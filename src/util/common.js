@@ -1,59 +1,65 @@
 const fs = require('fs-extra');
 const path = require('path');
 const CryptoJS = require('crypto-js');
-const isExample = process.env.IS_EXAMPLE === 'TRUE';
+const { log } = require('console');
 const DEFAULT_FILE_NAME = 'keys.development.json';
 
-const expoExampleDirName = 'exampleExpo';
-const exampleDirName =
-  process.cwd().includes(expoExampleDirName) ||
-  process.env?.SRCROOT?.includes(expoExampleDirName)
-    ? expoExampleDirName
-    : 'example';
 
 const PROJECT_ROOT_DIR_PATH = path.join(
   __dirname,
-  isExample ? `../../${exampleDirName}/` : '../../../../'
+  '../../../../../'
 );
 const PACKAGE_ROOT_DIR_PATH = path.join(__dirname, '../../');
 const RN_KEYS_PATH = path.join('node_modules', 'react-native-keys');
-const KEYS_IOS_PATH = path.join(RN_KEYS_PATH, 'ios');
-const KEYS_ANDROID_PATH = path.join(RN_KEYS_PATH, 'android');
+// const RN_KEYS_HM_PATH = path.join('node_modules', '@react-native-oh-tpl', 'react-native-keys');
 const KEYS_SRC_PATH = path.join(RN_KEYS_PATH, 'src');
 const KEYS_SRC_EXAMPLE_PATH = path.join('../', 'src');
 const KEYS_IOS_EXAMPLE_PATH = path.join('../', 'ios');
 const KEYS_ANDROID_EXAMPLE_PATH = path.join('../', 'android');
 
-const IOS_DIR_PATH = path.join(
-  PROJECT_ROOT_DIR_PATH,
-  isExample ? KEYS_IOS_EXAMPLE_PATH : KEYS_IOS_PATH
-);
+console.log("PROJECT_ROOT_DIR_PATH", PROJECT_ROOT_DIR_PATH);
+console.log("PACKAGE_ROOT_DIR_PATH", PACKAGE_ROOT_DIR_PATH);
+
 
 const CPP_DIRECTORY_PATH = path.join(
   PROJECT_ROOT_DIR_PATH,
-  isExample ? '../' : RN_KEYS_PATH,
-  'cpp'
-);
-
-const ANDROID_DIR_PATH = path.join(
-  PROJECT_ROOT_DIR_PATH,
-  isExample ? KEYS_ANDROID_EXAMPLE_PATH : KEYS_ANDROID_PATH,
+  RN_KEYS_PATH,
   'cpp'
 );
 
 const SRC_PATH = path.join(
   PROJECT_ROOT_DIR_PATH,
-  isExample ? KEYS_SRC_EXAMPLE_PATH : KEYS_SRC_PATH
+  KEYS_SRC_PATH
 );
-const ANDROID_KEYS_DIR_PATH = path.join(
-  PACKAGE_ROOT_DIR_PATH,
-  'android',
-  'src',
-  'main',
-  'java',
-  'com',
-  'reactnativekeysjsi'
+
+/** 
+ * HarmonyOs file path
+ *
+*/
+const DEFAULT_HM_PROJECT_PATH = path.join(PACKAGE_ROOT_DIR_PATH, 'harmony');
+const HM_PROJECT_PATH = process.env.HM_PROJECT_PATH || DEFAULT_HM_PROJECT_PATH;
+
+module.exports.HM_PROJECT_PATH = HM_PROJECT_PATH;
+
+const RN_KEYS_HMOS_MAIN_DIR = path.join(
+  HM_PROJECT_PATH,
+  process.env.HM_ENTRY_MODULE ?? 'entry',
+  'oh_modules/@react-native-oh-tpl/react-native-keys/src/main'
 );
+
+module.exports.RN_KEYS_HM_CPP_DIR = path.join(
+  RN_KEYS_HMOS_MAIN_DIR, 'cpp'
+);
+
+module.exports.RN_KEYS_HM_ETS_DIR = path.join(
+  RN_KEYS_HMOS_MAIN_DIR, 'ets'
+);
+
+
+module.exports.CPP_DIRECTORY_PATH = CPP_DIRECTORY_PATH;
+
+
+// ============================================================================
 
 const PROJECT_DIRECTORY_IOS_PATH = path.join(PROJECT_ROOT_DIR_PATH, 'ios');
 
@@ -89,6 +95,7 @@ module.exports.genTSType = (allKeys) => {
 
 module.exports.makeFileInCPPDir = (fileContent, fileName) => {
   try {
+    console.log("CPP_DIRECTORY_PATH: ", CPP_DIRECTORY_PATH);
     const iosCppFilePath = path.join(CPP_DIRECTORY_PATH, fileName);
     fs.outputFileSync(iosCppFilePath, fileContent);
     return true;
@@ -97,27 +104,8 @@ module.exports.makeFileInCPPDir = (fileContent, fileName) => {
   }
 };
 
-module.exports.makeFileInIosDir = (fileContent, fileName) => {
-  try {
-    const iosCppFilePath = path.join(IOS_DIR_PATH, fileName);
-    fs.outputFileSync(iosCppFilePath, fileContent);
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
 
-module.exports.makeFileInProjectDirectoryIos = (fileContent, fileName) => {
-  try {
-    const iosCppFilePath = path.join(PROJECT_DIRECTORY_IOS_PATH, fileName);
-    fs.outputFileSync(iosCppFilePath, fileContent);
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
-
-module.exports.getIosEnvironmentFile = () => {
+module.exports.getHarmonyOsEnvironmentFile = () => {
   try {
     let KEYS_FILE_NAME = process.env.KEYSFILE;
     if (KEYS_FILE_NAME) {
@@ -143,23 +131,22 @@ module.exports.getIosEnvironmentFile = () => {
   }
 };
 
-module.exports.getAndroidEnvironmentFile = () => {
+
+// harmonyos 
+module.exports.makeFileInHarmonyEtsFolder = (fileContent, fileName) => {
   try {
-    let KEYS_FILE_NAME = process.env.KEYSFILE;
-    if (KEYS_FILE_NAME) {
-      return KEYS_FILE_NAME;
-    } else if (process.env.DEFAULT_FILE_NAME) {
-      return process.env.DEFAULT_FILE_NAME;
-    }
-    return DEFAULT_FILE_NAME;
+    const filePath = path.join(this.RN_KEYS_HM_ETS_DIR, fileName);
+    fs.outputFileSync(filePath, fileContent);
+    return true;
   } catch (error) {
-    return DEFAULT_FILE_NAME;
+    console.error(error)
+    return false;
   }
 };
 
-module.exports.makeFileInAndroidMainAssetsFolder = (fileContent, fileName) => {
+module.exports.makeFileInHarmonyCppFolder = (fileContent, fileName) => {
   try {
-    const filePath = path.join(ANDROID_KEYS_DIR_PATH, fileName);
+    const filePath = path.join(this.RN_KEYS_HM_CPP_DIR, fileName);
     fs.outputFileSync(filePath, fileContent);
     return true;
   } catch (error) {
