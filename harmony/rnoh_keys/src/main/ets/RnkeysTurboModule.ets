@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-import { RNOHLogger, TurboModule, RNOHContext } from '@rnoh/react-native-openharmony/ts';
+import { RNOHLogger, TurboModule, TurboModuleContext } from '@rnoh/react-native-openharmony/ts';
 import rnKeysCPPLib from 'librnoh_keys.so';
 import BuildProfile from '../../../BuildProfile';
 
@@ -33,7 +33,8 @@ export class RNKeysTurboModule extends TurboModule {
 
   private logger: RNOHLogger;
 
-  constructor(ctx: RNOHContext) {
+  constructor(ctx: TurboModuleContext) {
+
     super(ctx);
     this.logger = this.ctx.logger.clone(LOGGER_NAME);
   }
