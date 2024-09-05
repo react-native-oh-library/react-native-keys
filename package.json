@@ -1,11 +1,11 @@
 {
   "name": "@react-native-oh-tpl/react-native-keys",
-  "version": "0.7.10-0.0.1",
+  "version": "0.7.10-0.0.2",
   "description": "react native harmony package",
-  "main": "lib\\commonjs\\index.js",
-  "module": "lib\\module\\index.js",
-  "types": "lib\\typescript\\src\\index.d.ts",
-  "react-native": "src\\index.ts",
+  "main": "lib/commonjs/index.js",
+  "module": "lib/module/index.js",
+  "types": "lib/typescript/src/index.d.ts",
+  "react-native": "src/index.ts",
   "scripts": {
     "buildpack": "bob build && npm pack"
   },
