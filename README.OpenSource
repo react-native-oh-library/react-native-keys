@@ -1,0 +1,11 @@
+[
+    {
+        "Name": "react-native-keys",
+        "License": "MIT License",
+        "License File": "https://github.com/numandev1/react-native-keys/blob/main/LICENSE",
+        "Version Number": "0.7.10",
+        "Owner" : "xiafeng@huawei.com",
+        "Upstream URL": "https://github.com/numandev1/react-native-keys",
+        "Description": "Make protected .ENVs variables"
+    }
+]
