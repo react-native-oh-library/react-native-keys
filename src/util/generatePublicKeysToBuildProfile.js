@@ -17,7 +17,8 @@ module.exports.publicKeysToBuildProfile = (publicKeys) => {
                 ...item, "buildOption": {
                     "arkOptions": {
                         "buildProfileFields": { ...publicKeys }
-                    }
+                    },
+                    "strictMode": {"useNormalizedOHMUrl": true}
                 }
             }
         });
