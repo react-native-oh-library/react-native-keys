@@ -21,8 +21,13 @@ module.exports.publicKeysToBuildProfile = (publicKeys) => {
         build_config.app.products = products_config_list.map(item => {
             return {
                 ...item, "buildOption": {
+                    ...item.buildOption,
                     "arkOptions": {
-                        "buildProfileFields": { ...publicKeys }
+                        ...item.buildOption?.arkOptions,
+                        "buildProfileFields": { 
+                            ...item.buildOption?.arkOptions?.buildProfileFields,
+                            ...publicKeys 
+                        }
                     }
                 }
             }
