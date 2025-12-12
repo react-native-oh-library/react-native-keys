@@ -1,9 +1,13 @@
-# @react-native-oh-tpl/react-native-keys
-This project is based on [react-native-keys](https://github.com/numandev1/react-native-keys)
-## Documentation
-[中文](https://gitee.com/react-native-oh-library/usage-docs/blob/master/zh-cn/react-native-keys.md)
+#  迁移声明
 
-[English](https://gitee.com/react-native-oh-library/usage-docs/blob/master/en/react-native-keys.md)
+- 本仓库已迁移至 GitCode：[OpenHarmony-SIG/rntpc_react-native-keys](https://gitcode.com/openharmony-sig/rntpc_react-native-keys)。
+- 包名已更改为 `@react-native-ohos/react-native-keys`，支持直接从 npm 下载。
+- 更多详情请查阅新仓库的 README 文件。
+- 本仓库旧版本的文档已归档：[链接](/doc/zh-cn.md)
 
-## License
-This library is licensed under [MIT License](https://github.com/react-native-oh-library/react-native-keys/blob/sig/LICENSE).
+# Migration Announcement
+
+- This repository has been migrated to GitCode：[OpenHarmony-SIG/rntpc_react-native-keys](https://gitcode.com/openharmony-sig/rntpc_react-native-keys)       
+- The package name has been changed to `@react-native-ohos/react-native-keys` and is now available for direct download from npm.
+- For more details, please refer to the README in the new repository.
+- Archived documentation for versions in this repository can be found here: [Link](/doc/en.md)
