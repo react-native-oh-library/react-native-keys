@@ -44,7 +44,7 @@ module.exports.HM_PROJECT_PATH = HM_PROJECT_PATH;
 const RN_KEYS_HMOS_MAIN_DIR = path.join(
   HM_PROJECT_PATH,
   process.env.HM_ENTRY_MODULE ?? 'entry',
-  'oh_modules/@react-native-oh-tpl/react-native-keys/src/main'
+  'oh_modules/@react-native-ohos/react-native-keys/src/main'
 );
 
 module.exports.RN_KEYS_HM_CPP_DIR = path.join(
