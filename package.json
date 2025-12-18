@@ -1,6 +1,6 @@
 {
   "name": "@react-native-ohos/react-native-keys",
-  "version": "0.8.0-rc.1", 
+  "version": "0.8.0-rc.2", 
   "description": "react native harmony package",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
